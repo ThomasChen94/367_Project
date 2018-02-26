@@ -1,1 +1,1 @@
-# 367_Project
+# 367_Project-burst photography
