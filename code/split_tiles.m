@@ -20,7 +20,7 @@ function tile_image = split_tiles(I, tile_size, overlapping_size)
         for j = 1 : tile_image_width
             i_I = 1 + (i-1) * incre;
             j_I = 1 + (j-1) * incre;
-            tile_image{i, j} = I_pad(i_I:i_I+tile_size, j_I:j_I+tile_size);
+            tile_image{i, j} = I_pad(i_I:i_I+tile_size - 1, j_I:j_I+tile_size - 1);
         end
     end
     

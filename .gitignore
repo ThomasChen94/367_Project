@@ -1,3 +1,4 @@
 # ignore dataset
 dataset/*
+output/*
 .DS_Store
