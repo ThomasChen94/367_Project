@@ -7,8 +7,8 @@ function [ output_cell ] = merge( all_tile_cell )
     [len1, len2] = size(all_tile_cell{1});
     matrix_size = size(all_tile_cell{1}{1,1});
     
-    output_cell = cell(1,num_photos);
-    for p = 1:numphotos
+    output_cell = cell([len1 len2]);
+    for p = 1:num_photos
         output_cell{p} = cell([len1, len2]);
     end
     
@@ -16,10 +16,10 @@ function [ output_cell ] = merge( all_tile_cell )
         for j = 1:len2
             T0 = zeros(matrix_size);
             for p = 1:num_photos
-                T0 = T0 + fft2(all_tile_cell{p}{i}{j});
+                T0 = T0 + fft2(all_tile_cell{p}{i,j});
             end
             T0 = T0 * 1.0 / num_photos;
-            output_cell{p}{i}{j} = real(ifft2(T0));
+            output_cell{i,j} = real(ifft2(T0));
         end
     end
 end
