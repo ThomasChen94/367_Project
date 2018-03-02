@@ -3,7 +3,7 @@ function [ output_cell ] = merge( all_tile_cell )
 	% all_tile_cell: a nested tile, length: number of bursts of photos
     % output_cell: a cell of a single photos
     
-    num_photos = size(all_tile_cell, 1);  % [10] take 10
+    num_photos = size(all_tile_cell, 2);  % [1, 10] take 10
     [len1, len2] = size(all_tile_cell{1});
     matrix_size = size(all_tile_cell{1}{1,1});
     
