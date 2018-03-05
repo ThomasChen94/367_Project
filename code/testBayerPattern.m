@@ -32,14 +32,9 @@ f4 = f4*0.125;
 
 
 %separate R G B channel
-<<<<<<< HEAD
-I = imread('result.png');
-img = im2double(I);
-=======
 I = imread('../output/merge_output.pgm');
 img = im2double(I);
 %img = img(1:end-1,:);
->>>>>>> 12be7375846e7433ad69fc988b03684f3beaef68
 [m, n] = size(img);
 red_mask = repmat([1 0;0 0], floor(m/2), floor(n/2));
 green_mask = repmat([0 1;1 0], floor(m/2), floor(n/2));
