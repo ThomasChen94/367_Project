@@ -2,6 +2,6 @@
 *.dng
 *.pgm
 process.m
-q2_linear.m
-q2.m
+q2*
 q3.m
+/dataset
