@@ -32,7 +32,7 @@ f4 = f4*0.125;
 
 
 %separate R G B channel
-I = imread('../output/test.pgm');
+I = imread('res.png');
 img = im2double(I);
 % img = img(1:end-1,:);
 [m, n] = size(img);
@@ -76,4 +76,4 @@ blue_highqual = blue_highqual(2:m-1, 2:n-1);
 img_highqual = cat(3, red_highqual, green_highqual, blue_highqual);
 restored_highqual = imadjust(img_highqual,[0,1],[0,1],1.0/2.2);
 
-imwrite(restored_highqual, 'test5(rggb).png');
+imwrite(restored_highqual, 'result.png');

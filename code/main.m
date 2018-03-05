@@ -23,6 +23,7 @@ merged_cell = merge(tiles_list);
 output_image = stack_tiles(merged_cell, TILE_SIZE, OVERLAPPING_SIZE);
 %%
 imshow(output_image); title('raw image after merging');
+imwrite(output_image, 'res.png');
 
 
 
