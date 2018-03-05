@@ -32,8 +32,14 @@ f4 = f4*0.125;
 
 
 %separate R G B channel
+<<<<<<< HEAD
 I = imread('result.png');
 img = im2double(I);
+=======
+I = imread('../output/merge_output.pgm');
+img = im2double(I);
+%img = img(1:end-1,:);
+>>>>>>> 12be7375846e7433ad69fc988b03684f3beaef68
 [m, n] = size(img);
 red_mask = repmat([1 0;0 0], floor(m/2), floor(n/2));
 green_mask = repmat([0 1;1 0], floor(m/2), floor(n/2));
@@ -75,4 +81,8 @@ blue_highqual = blue_highqual(2:m-1, 2:n-1);
 img_highqual = cat(3, red_highqual, green_highqual, blue_highqual);
 restored_highqual = imadjust(img_highqual,[0,1],[0,1],1.0/2.2);
 
+<<<<<<< HEAD
 imwrite(restored_highqual, 'result2.png');
+=======
+imwrite(restored_highqual, '../output/test5(rggb).png');
+>>>>>>> 12be7375846e7433ad69fc988b03684f3beaef68
