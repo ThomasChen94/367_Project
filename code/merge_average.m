@@ -1,4 +1,4 @@
-function [ output_cell ] = merge( all_tile_cell )
+function [ output_cell ] = merge_average( all_tile_cell )
 	% merge over tiles
 	% all_tile_cell: a nested tile, length: number of bursts of photos
     % output_cell: a cell of a single photos
