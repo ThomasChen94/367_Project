@@ -81,8 +81,4 @@ blue_highqual = blue_highqual(2:m-1, 2:n-1);
 img_highqual = cat(3, red_highqual, green_highqual, blue_highqual);
 restored_highqual = imadjust(img_highqual,[0,1],[0,1],1.0/2.2);
 
-<<<<<<< HEAD
-imwrite(restored_highqual, 'result2.png');
-=======
 imwrite(restored_highqual, '../output/test5(rggb).png');
->>>>>>> 12be7375846e7433ad69fc988b03684f3beaef68
