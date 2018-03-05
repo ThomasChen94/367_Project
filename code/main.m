@@ -10,7 +10,7 @@ end
 
 %%
 TILE_SIZE = 16;
-OVERLAPPING_SIZE = 0;
+OVERLAPPING_SIZE = 2;
 tiles_list = cell(1, num_img);
 for i = 1 : num_img
     I = img_list{i};
@@ -23,6 +23,7 @@ merged_cell = merge(tiles_list);
 output_image = stack_tiles(merged_cell, TILE_SIZE, OVERLAPPING_SIZE);
 %%
 imshow(output_image); title('raw image after merging');
+imwrite(output_image, 'result.png');
 
 
 
