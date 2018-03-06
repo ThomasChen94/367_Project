@@ -10,6 +10,7 @@ end
 
 %%
 TILE_SIZE = 8;
+
 OVERLAPPING_SIZE = 2;
 tiles_list = cell(1, num_img);
 tiles_list_R = cell(1, num_img);
