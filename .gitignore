@@ -2,3 +2,4 @@
 dataset/*
 output/*
 .DS_Store
+*.png
