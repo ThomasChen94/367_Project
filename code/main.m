@@ -9,9 +9,9 @@ for i=1:num_img
 end 
 
 %%
-TILE_SIZE = 8;
+TILE_SIZE = 16;
 
-OVERLAPPING_SIZE = 2;
+OVERLAPPING_SIZE = 8;
 tiles_list = cell(1, num_img);
 tiles_list_R = cell(1, num_img);
 tiles_list_B = cell(1, num_img);
