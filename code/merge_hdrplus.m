@@ -25,7 +25,7 @@ function [ output_cell ] = merge_hdrplus( all_tile_cell )
                 Az = abs(Dz).^2 / (abs(Dz).^2 + c * sigma^2);
                 T0_tilde = T0_tilde + Az .* (T0 - Tz) + Tz;
             end
-            output_cell{i, j} = ifft2(T0 / num_photos);
+            output_cell{i, j} = ifft2(T0_tilde / num_photos);
         end
     end
 end

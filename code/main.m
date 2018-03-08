@@ -1,11 +1,14 @@
 %%
 clc;clear;
-image_path_list = dir('../dataset/*.pgm');
+image_path_list = dir('../dataset/*.tiff');
 num_img = length(image_path_list);
 img_list = cell(1, num_img);
  
 for i=1:num_img
-    img_list{i} = im2double(imread(strcat('../dataset/', image_path_list(i).name)));
+    %img_list{i} = im2double(imread(strcat('../dataset/', image_path_list(i).name)));
+    I = imread(strcat('../dataset/', image_path_list(i).name));
+    I = double(I);
+    img_list{i} = (I-min(I(:))) ./ (max(I(:))-min(I(:)));
 end 
 
 %%
@@ -18,7 +21,7 @@ for i = 1 : num_img
 end
 
 %%
-method_idx = 1; % method index: 0: baseline | 1: hdr | 2: our method
+method_idx = 0; % method index: 0: baseline | 1: hdr | 2: our method
 if method_idx == 0
     merged_cell = merge_average(tiles_list);
 elseif method_idx == 1
@@ -30,12 +33,16 @@ end
 %%
 output_image = stack_tiles(merged_cell, TILE_SIZE, OVERLAPPING_SIZE);
 %%
-imshow(output_image); title('raw image after merging');
+%imshow(output_image); title('raw image after merging');
 
-imwrite(output_image, '../output/merge_output.pgm');
+%imwrite(output_image, '../output/merge_output.tiff');
 %%
 %demosaic
-testBayerPattern;
+%testBayerPattern;
+
+%alternative matlab demosaic
+%J = demosaic(I,'rggb');
+%imshow(J)
 
 
 
