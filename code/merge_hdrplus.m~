@@ -8,7 +8,7 @@ function [ output_cell ] = merge_hdrplus( all_tile_cell )
     
     output_cell = cell([len1 len2]);
     
-    c = 8; % hyperparameter, fixed as 8 in the paper
+    c = 2; % hyperparameter, fixed as 8 in the paper
     for i = 1 : len1
         for j = 1 : len2
             % for each position, merge all tiles together
@@ -25,7 +25,9 @@ function [ output_cell ] = merge_hdrplus( all_tile_cell )
                 Az = abs(Dz).^2 / (abs(Dz).^2 + c * sigma^2);
                 T0_tilde = T0_tilde + Az .* (T0 - Tz) + Tz;
             end
-            output_cell{i, j} = ifft2(T0_tilde / num_photos);
+            figure; imshow(T0)
+            figure; imshow(T0_tilde / num_photos)
+            output_cell{i, j} = ifft2(T0 / num_photos);
         end
     end
 end

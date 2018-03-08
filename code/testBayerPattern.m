@@ -33,8 +33,10 @@ f4 = f4*0.125;
 
 %separate R G B channel
 
-I = imread('../output/merge_output.tiff');
-img = im2double(I);
+%I = imread('../output/merge_output.tiff');
+%img = im2double(I);
+%img = img(1:end-1,:);
+img = output_image;
 [m, n] = size(img);
 red_mask = repmat([1 0;0 0], floor(m/2), floor(n/2));
 green_mask = repmat([0 1;1 0], floor(m/2), floor(n/2));
