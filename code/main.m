@@ -29,7 +29,7 @@ for i = 1 : num_img
 end
 
 %%
-method_idx = 1; % method index: 0: baseline | 1: hdr | 2: our method
+method_idx = 0; % method index: 0: baseline | 1: hdr | 2: our method
 if method_idx == 0
     merged_cell = merge_average(tiles_list);
     output_image = stack_tiles(merged_cell, TILE_SIZE, OVERLAPPING_SIZE);
@@ -53,12 +53,16 @@ end
 
 
 %%
-imshow(output_image); title('raw image after merging');
+%imshow(output_image); title('raw image after merging');
 
-imwrite(output_image, '../output/merge_output.pgm');
+%imwrite(output_image, '../output/merge_output.tiff');
 %%
 %demosaic
-testBayerPattern;
+%testBayerPattern;
+
+%alternative matlab demosaic
+%J = demosaic(I,'rggb');
+%imshow(J)
 
 
 
