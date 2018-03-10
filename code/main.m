@@ -60,10 +60,9 @@ imwrite(output_image, '../output/merge_output.tiff');
 %demosaic
 %testBayerPattern;
 
+I_whitBalane = whiteBalance(I);
 %alternative matlab demosaic
-J = demosaic(I,'rggb.png');
+J = demosaic(I_whiteBalance,'rggb.png');
 imshow(J)
-
-
 
 
