@@ -78,5 +78,6 @@ function output = our_demosaic(img, filename)
     restored_highqual = imadjust(img_highqual,[0,1],[0,1],1.0/2.2);
 
     imwrite(restored_highqual, ['../output/', filename]);
-    output = img_highqual;                 
+    output = img_highqual; 
+    %output = img_highqual; 
 end
