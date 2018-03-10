@@ -61,8 +61,10 @@ imwrite(output_image, '../output/merge_output.tiff');
 %testBayerPattern;
 
 %alternative matlab demosaic
-J = demosaic(I,'rggb.png');
-imshow(J)
+I = output_image;
+J = our_demosaic(I,'rggb.png');
+J = denoise(J, 1);
+%imshow(J)
 
 
 

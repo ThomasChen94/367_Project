@@ -32,7 +32,7 @@ f4 = f4*0.125;
 
 
 %separate R G B channel
-I = imread('../dataset2/1.tiff');
+%I = imread('../dataset2/1.tiff');
 
 maxValue = 1023;
 minValue = 0;
