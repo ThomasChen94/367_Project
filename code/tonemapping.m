@@ -50,5 +50,5 @@ function output = tonemapping(I, filename)
     gamma = 2.2;
     output = imadjust(Ichrominance.*repmat(O,[1,1,3]),[0,1],[0,1],1/gamma);
     
-    imwrite(output, ['../output/tonemapping', filename]);
+    imwrite(output, ['../output/tonemapping_', filename]);
 end

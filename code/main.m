@@ -60,13 +60,15 @@ imwrite(output_image, '../output/merge_output.tiff');
 %demosaic
 %testBayerPattern;
 
+
 %alternative matlab demosaic
 I = output_image;
-J = our_demosaic(I,'rggb.png');
-J = denoise(J, 1);
-J = denoisePoisson(J);
+
+I_whitBalane = whiteBalance(I);
+J = our_demosaic(I_whitBalane,'rggb.png');
+%%
+J = tonemapping(J, 'hotel.png');
+%J = denoise(J, 1);
 %imshow(J)
-
-
 
 

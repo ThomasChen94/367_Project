@@ -3,3 +3,5 @@ dataset/*
 output/*
 .DS_Store
 *.png
+code/test/*
+code/test.m
