@@ -64,6 +64,7 @@ imwrite(output_image, '../output/merge_output.tiff');
 I = output_image;
 J = our_demosaic(I,'rggb.png');
 J = denoise(J, 1);
+J = denoisePoisson(J);
 %imshow(J)
 
 
