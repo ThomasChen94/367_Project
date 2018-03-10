@@ -16,7 +16,7 @@ function output = denoise(I, method)
             averageFilterRadius     = floor(filterSize/2);
             sigmaIntensity          = 0.15;
             for c=1:size(I,3)
-                output_temp(:,:,c) = bilateral(I(:,:,c), averageFilterRadius, sigma, sigmaIntensity);
+                output_temp(:,:,c) = bilateral_chen(I(:,:,c), averageFilterRadius, sigma, sigmaIntensity);
             end
             
         elseif method == 2

@@ -1,8 +1,7 @@
-function Ifilt = bilateral(I, averageFilterRadius, sigmaSpatial, sigmaIntensity)
+function Ifilt = bilateral_chen(I, averageFilterRadius, sigmaSpatial, sigmaIntensity)
 
     % pad image to reduce boundary artifacts
     I = padarray(I,[averageFilterRadius averageFilterRadius],'symmetric');
-    %fprintf('size(A) is %s\n', mat2str(size(I)));
 
     % initialize filtered image as 0
     Ifilt = zeros(size(I));
@@ -15,10 +14,7 @@ function Ifilt = bilateral(I, averageFilterRadius, sigmaSpatial, sigmaIntensity)
         for kx= 1+averageFilterRadius:size(I,2)-averageFilterRadius
             
             % extract current pixel
-            %I just have 2 dimensions
             currentPixel = I(ky,kx,:);
-            
-            
                             
             % accumulated normalization factor
             normalizationFactor = zeros([1 1 size(I,3)]);
@@ -26,18 +22,15 @@ function Ifilt = bilateral(I, averageFilterRadius, sigmaSpatial, sigmaIntensity)
             % go over a window of size 2*averageFilterRadius+1 around the
             % current pixel, compute weights, sum the weighted intensity
 
-            xmin = kx - averageFilterRadius;
-            xmax = kx + averageFilterRadius;
-            ymin = ky - averageFilterRadius;
-            ymax = ky + averageFilterRadius;
-
-            iDiff = I(ymin:ymax, xmin:xmax) - currentPixel;
-            iDiff = exp(-iDiff.^2/(2*sigmaIntensity^2));
+            window = I(ky - averageFilterRadius : ky + averageFilterRadius, ...
+                                 kx - averageFilterRadius : kx + averageFilterRadius, ...
+                                 :);
+            intenseKernal = exp(- (window - currentPixel).^2 / (2 * sigmaIntensity));
             
-            weight = spatialKernel.*iDiff;
+            kernal = spatialKernel .* intenseKernal;
+            Ifilt(ky,kx,:) = sum(sum(window .* kernal, 1), 2);
             
-            Ifilt(ky, kx) = sum(sum(weight.*I(ymin:ymax, xmin:xmax)));
-            normalizationFactor = sum(sum(weight));
+            normalizationFactor = sum(sum(kernal, 1), 2);
             
             % normalize pixel value
             Ifilt(ky,kx,:) = Ifilt(ky,kx,:) ./ normalizationFactor;
