@@ -12,6 +12,7 @@ function Ifilt = bilateral(I, averageFilterRadius, sigmaSpatial, sigmaIntensity)
     spatialKernel = fspecial('gaussian', [2*averageFilterRadius+1 2*averageFilterRadius+1], sigmaSpatial);
         
     for ky= 1+averageFilterRadius:size(I,1)-averageFilterRadius
+        disp(['current pos: ', num2str(ky)]);
         for kx= 1+averageFilterRadius:size(I,2)-averageFilterRadius
             % extract current pixel
             %I just have 2 dimensions
