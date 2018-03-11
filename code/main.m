@@ -64,8 +64,7 @@ imwrite(output_image, '../output/merge_output.tiff');
 %alternative matlab demosaic
 I = output_image;
 
-I_whitBalane = whiteBalance2(I);
-
+I_whitBalane = whiteBalance(I);
 J = our_demosaic(I_whitBalane,'rggb.png');
 
 
