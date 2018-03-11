@@ -14,8 +14,8 @@ function output = tonemapping(I, filename)
 
     % Filter that with a bilateral filter: B = bf(L) 
     averageFilterRadius = 5; % Chnage if needed
-    sigma               = 2;
-    sigmaIntensity      = 0.2;
+    sigma               = ;
+    sigmaIntensity      = 0.05;
     
     B = bilateral(L, averageFilterRadius, sigma, sigmaIntensity);
     % Show B

@@ -64,12 +64,11 @@ imwrite(output_image, '../output/merge_output.tiff');
 %alternative matlab demosaic
 I = output_image;
 
-%I_whitBalane = whiteBalance(I);
-I_whitBalane = I;
+I_whitBalane = whiteBalance(I);
 J = our_demosaic(I_whitBalane,'rggb.png');
 %%
-J = tonemapping(J, 'hotel.png');
+K = tonemapping(J, 'hotel.png');
 %J = denoise(J, 1);
-imshow(J)
+imshow(K)
 
 
