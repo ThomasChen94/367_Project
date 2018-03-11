@@ -3,6 +3,7 @@ function output = tonemapping(I, filename)
     %parameters that might need adjust:averageFilterRadius, sigma,
     %sigmaIntensity, dR, gamma
     I = (I-min(I(:))) ./ (max(I(:))-min(I(:)));
+
     % compute intensity channel by averaging the three color channels
     Iintensity = (20*I(:,:,1)+40*I(:,:,2)+I(:,:,3)) ./61; 
 
@@ -14,10 +15,18 @@ function output = tonemapping(I, filename)
 
     % Filter that with a bilateral filter: B = bf(L) 
     averageFilterRadius = 5; % Chnage if needed
+    
     sigma               = 2;
     sigmaIntensity      = 0.2;
     
     B = bilateral(L, averageFilterRadius, sigma, sigmaIntensity);
+        
+%     % wanzi
+%     spatialSigma_W = 2;
+%     intensitySigma_W = 0.5;
+%     B = biFilter(spatialSigma_W, intensitySigma_W, L);
+
+    
     % Show B
     f = figure();imagesc(B); colorbar;colormap gray;
     saveas(f, 'Q2_Base.png');
