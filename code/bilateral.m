@@ -13,7 +13,6 @@ function Ifilt = bilateral(I, averageFilterRadius, sigmaSpatial, sigmaIntensity)
         
     for ky= 1+averageFilterRadius:size(I,1)-averageFilterRadius
         for kx= 1+averageFilterRadius:size(I,2)-averageFilterRadius
-            
             % extract current pixel
             %I just have 2 dimensions
             currentPixel = I(ky,kx,:);
