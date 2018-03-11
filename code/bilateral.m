@@ -18,7 +18,7 @@ function Ifilt = bilateral(I, averageFilterRadius, sigmaSpatial, sigmaIntensity)
             currentPixel = I(ky,kx,:);
             
             
-                            
+                          
             % accumulated normalization factor
             normalizationFactor = zeros([1 1 size(I,3)]);
             
