@@ -1,8 +1,0 @@
-
-
-I_whitBalane = white_balance(img_list{1});
-I_whitBalane = I;
-J = our_demosaic(I_whitBalane,'white.png');
-%%
-J_gamma = J .^ (1.2);
-imshow(J_gamma);

@@ -3,10 +3,8 @@ function o = tonemapping(I, filename)
     %parameters that might need adjust:averageFilterRadius, sigma,
     %sigmaIntensity, dR, gamma
     
-    
+    I = I .^ (1 / 2.2);
     I = (I-min(I(:))) ./ (max(I(:))-min(I(:)));
-%     I = I .^ (1 / 2.2);
-%     I = (I-min(I(:))) ./ (max(I(:))-min(I(:)));
     
     % compute intensity channel by averaging the three color channels
     Iintensity = (20*I(:,:,1)+40*I(:,:,2)+I(:,:,3)) ./61; 
@@ -20,8 +18,8 @@ function o = tonemapping(I, filename)
     % Filter that with a bilateral filter: B = bf(L) 
     averageFilterRadius = 5; % Chnage if needed
     
-    sigma               = 2;
-    sigmaIntensity      = 0.05;
+    sigma               = 3;
+    sigmaIntensity      = 0.25;
     
     B = bilateral(L, averageFilterRadius, sigma, sigmaIntensity);
         

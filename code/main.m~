@@ -4,13 +4,16 @@ image_path_list = dir('../dataset/*.tiff');
 num_img = length(image_path_list);
 img_list = cell(1, num_img);
  
+scale_factor = (2^3).^[6,6,6,5,6,2,3,4,5,6];
+scale_factor = 2.^[6,6,6,6,6,6,6,6,6,6];
+
 for i=1:num_img
-    img_list{i} = im2double(imread(strcat('../dataset/', image_path_list(i).name))) * 64;
+    img_list{i} = im2double(imread(strcat('../dataset/', image_path_list(i).name))) * scale_factor(i);
 end 
 
 %%
 
-disp('Split...')
+disp('Splitting images to tiles...')
 TILE_SIZE = 32;
 
 OVERLAPPING_SIZE = 4;
@@ -54,26 +57,31 @@ elseif method_idx == 2
     merged_cell = merge_average(tiles_list);
 end
 
-
-
-%imshow(output_image); title('raw image after merging');
-
 imwrite(output_image, '../output/merge_output.tiff');
 
 %demosaic
 %testBayerPattern;
 
-
+%%
 %alternative matlab demosaic
 I = output_image;
 
-%I_whitBalane = whiteBalance(I);
-I_whitBalane = I;
+I(:, :, 1) = I(:, :, 1) - min(min(I(:, :, 1))); % black-level subtraction
+I(:, :, 2) = I(:, :, 2) - min(min(I(:, :, 2)));
+I(:, :, 3) = I(:, :, 3) - min(min(I(:, :, 3)));
+
+
+disp('White balancing and demosaicing...')
+I_whitBalane = whiteBalance(img_list{1});
+%I_whitBalane = I;
 J = our_demosaic(I_whitBalane,'rggb.png');
-imshow(J)
+J = J * 4;
+%imshow(J*4)
+
 %%
-%J = tonemapping(J, 'hotel.png');
+J_tone = tonemapping(J, 'hotel.png');
 %J = denoise(J, 1);
 %imshow(J)
+
 
 

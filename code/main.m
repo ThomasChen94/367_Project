@@ -4,7 +4,8 @@ image_path_list = dir('../dataset/*.tiff');
 num_img = length(image_path_list);
 img_list = cell(1, num_img);
  
-scale_factor = 2.^[1,1,1,1,1,2,3,4,5,6];
+scale_factor = (2^2).^[6,6,1,5,6,2,3,4,5,6];
+%scale_factor = 2.^[6,6,6,6,6,6,6,6,6,6];
 
 for i=1:num_img
     img_list{i} = im2double(imread(strcat('../dataset/', image_path_list(i).name))) * scale_factor(i);
@@ -58,25 +59,25 @@ end
 
 imwrite(output_image, '../output/merge_output.tiff');
 
+%%
 %demosaic
 %testBayerPattern;
 
 %alternative matlab demosaic
 I = output_image;
 
+I = I - min(min(I)); % black-level subtraction
+
 disp('White balancing and demosaicing...')
-I_whitBalane = whiteBalance(img_list{1});
+I_whitBalane = whiteBalance(I);
 %I_whitBalane = I;
 J = our_demosaic(I_whitBalane,'rggb.png');
 %imshow(J*4)
 
 %%
-J_gamma = J .^ (1.23);
-imshow(J_gamma);
-
-%%
-%J = tonemapping(J, 'hotel.png');
+J_tone = tonemapping(J, 'hotel.png');
 %J = denoise(J, 1);
 %imshow(J)
+
 
 
