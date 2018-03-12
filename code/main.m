@@ -81,6 +81,5 @@ J_chroma = chroma_denoise(J_demosaic, '/wanzi/4chroma.png');
 fprintf('tonemapping...\n');
 J_tonemap = tonemap_pro(J_chroma, '/wanzi/4hotel.png');
 
-% imshow(J)
-
+imshow(J_tonemap);
 
