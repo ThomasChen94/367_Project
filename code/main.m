@@ -8,6 +8,13 @@ for i=1:num_img
     img_list{i} = im2double(imread(strcat('../dataset/', image_path_list(i).name))) * 64;
 end 
 
+% scale_factor = (2^2).^[6,6,1,5,6,2,3,4,5,6];
+% %scale_factor = 2.^[6,6,6,6,6,6,6,6,6,6];
+% 
+% for i=1:num_img
+%     img_list{i} = im2double(imread(strcat('../dataset/', image_path_list(i).name))) * scale_factor(i);
+% end
+
 %%
 TILE_SIZE = 32;
 
@@ -55,23 +62,25 @@ end
 %%
 imshow(output_image); title('raw image after merging');
 
-imwrite(output_image, '../output/merge_output.tiff');
+imwrite(output_image, '../output/merge_output4.tiff');
+
 %%
-%demosaic
-%testBayerPattern;
-
-
 %alternative matlab demosaic
 I = output_image;
 
-I_whitBalane = whiteBalance(I);
-J = our_demosaic(I_whitBalane,'rggb.png');
+fprintf('white balance...\n');
+I_whiteBalane = whiteBalance(I);
 
+fprintf('demosaic...\n');
+J_demosaic = our_demosaic(I_whiteBalane,'/wanzi/4rggb.png');
+fprintf('chroma denoise...\n');
+J_chroma = chroma_denoise(J_demosaic, '/wanzi/4chroma.png');
 
-%%
-fprintf('inside tone mapping\n');
-J = tonemapping(J, 'hotel.png');
-J = denoise(J, 1);
-imshow(J)
+% J = (J-min(J(:))) ./ (max(J(:))-min(J(:)));
+
+fprintf('tonemapping...\n');
+J_tonemap = tonemap_pro(J_chroma, '/wanzi/4hotel.png');
+
+% imshow(J)
 
 

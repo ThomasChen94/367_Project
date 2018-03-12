@@ -1,0 +1,10 @@
+function [ resI ] = chroma_denoise( I )
+
+Ichroma = = rgb2ycbcr(res_linear_temp);
+
+resIchroma = biFilter(spatialSigma, intensitySigma, rawI);
+
+
+
+end
+

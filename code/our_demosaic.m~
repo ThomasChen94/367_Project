@@ -74,26 +74,26 @@ function output = our_demosaic(img, filename)
     green_highqual = green_highqual(2:m-1, 2:n-1);
     blue_highqual = blue_highqual(2:m-1, 2:n-1);
 
-%     % white balance
-%     % make means of all color channels the same
-%     meanR = mean2(red_highqual);
-%     meanG = mean2(green_highqual);
-%     meanB = mean2(blue_highqual);
-% 
-%     maxMean = max(meanR, max(meanG, meanB));
-% 
-%     red_highqual = double(red_highqual) * maxMean / meanR;
-%     green_highqual = double(green_highqual) * maxMean / meanG;
-%     blue_highqual = double(blue_highqual) * maxMean / meanB;
-%     % end whitebalance
+    % white balance
+    % make means of all color channels the same
+    meanR = mean2(red_highqual);
+    meanG = mean2(green_highqual);
+    meanB = mean2(blue_highqual);
+
+    maxMean = max(meanR, max(meanG, meanB));
+
+    red_highqual = double(red_highqual) * maxMean / meanR;
+    green_highqual = double(green_highqual) * maxMean / meanG;
+    blue_highqual = double(blue_highqual) * maxMean / meanB;
+    % end whitebalance
     
   
     img_highqual = cat(3, red_highqual, green_highqual, blue_highqual);
     restored_highqual = imadjust(img_highqual,[0,1],[0,1],1.0/2.2);
-    % imwrite(restored_highqual, ['../output/', filename]);
-    
+
+ 
     imwrite(restored_highqual, ['../output/', filename]);
-    output = img_highqual;
-    
-%     I = im2double(I);
+    output = img_highqual; 
+ 
+    %output = img_highqual; 
 end
