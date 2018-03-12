@@ -4,19 +4,26 @@ image_path_list = dir('../dataset/*.tiff');
 num_img = length(image_path_list);
 img_list = cell(1, num_img);
  
-scale_factor = (2^2).^[6,6,1,5,6,2,3,4,5,6];
+scale_factor = 2.^[6,6,1,5,6,2,3,4,5,6];
 %scale_factor = 2.^[6,6,6,6,6,6,6,6,6,6];
 
 for i=1:num_img
     img_list{i} = im2double(imread(strcat('../dataset/', image_path_list(i).name))) * scale_factor(i);
 end 
 
+% scale_factor = (2^2).^[6,6,1,5,6,2,3,4,5,6];
+% %scale_factor = 2.^[6,6,6,6,6,6,6,6,6,6];
+% 
+% for i=1:num_img
+%     img_list{i} = im2double(imread(strcat('../dataset/', image_path_list(i).name))) * scale_factor(i);
+% end
+
 %%
 
 disp('Splitting images to tiles...')
-TILE_SIZE = 32;
+TILE_SIZE = 48;
 
-OVERLAPPING_SIZE = 4;
+OVERLAPPING_SIZE = 8;
 tiles_list = cell(1, num_img);
 tiles_list_R = cell(1, num_img);
 tiles_list_B = cell(1, num_img);
@@ -65,19 +72,24 @@ imwrite(output_image, '../output/merge_output.tiff');
 
 %alternative matlab demosaic
 I = output_image;
-
+I = I(1:size(img_list{1}, 1), 1:size(img_list{1}, 2));
 I = I - min(min(I)); % black-level subtraction
 
-disp('White balancing and demosaicing...')
-I_whitBalane = whiteBalance(I);
-%I_whitBalane = I;
-J = our_demosaic(I_whitBalane,'rggb.png');
+
+disp('White balancing...')
+I_whiteBalane = whiteBalance(I);
+
+disp('demosaicing...')
+J_demosaic = our_demosaic(I_whiteBalane,'/chen/4rggb.png');
+
+fprintf('chroma denoise...\n');
+J_chroma = chroma_denoise(J_demosaic, '/chen/4chroma.png');
+
 %imshow(J*4)
 
 %%
-J_tone = tonemapping(J, 'hotel.png');
+J_tone = tonemapping(J_chroma, 'hotel.png');
 %J = denoise(J, 1);
 %imshow(J)
-
 
 

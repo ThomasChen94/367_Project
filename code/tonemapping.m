@@ -20,8 +20,8 @@ function o = tonemapping(I, filename)
     % Filter that with a bilateral filter: B = bf(L) 
     averageFilterRadius = 5; % Chnage if needed
     
-    sigma               = 2;
-    sigmaIntensity      = 0.05;
+    sigma               = 3;
+    sigmaIntensity      = 0.25;
     
     B = bilateral(L, averageFilterRadius, sigma, sigmaIntensity);
         
@@ -47,9 +47,9 @@ function o = tonemapping(I, filename)
     % The offset is such that the maximum intensity of the base is 1. Since the values are in the log domain, o = max(B).
     % The scale is set so that the output base has dR stops of dynamic range, i.e., s = dR / (max(B) - min(B)).
 
-    dR = 0.5; %try different values, such as 1, 2
+    dR = 0.8; %try different values, such as 1, 2
     s = dR / (max(B(:)) - min(B(:)));
-    BB = (B-max(B(:))).*s;
+    BB = (B-min(B(:))).*s;
     
     % Show the scaled base layer
     f = figure();imagesc(BB); colorbar;colormap gray;
@@ -63,5 +63,6 @@ function o = tonemapping(I, filename)
     %gamma = 6.2;
     %o = imadjust(Ichrominance.*repmat(O,[1,1,3]),[0,1],[0,1],1/gamma);
     o = Ichrominance.*repmat(O,[1,1,3]);
+    imshow(o)
     %imwrite(output, ['../output/tonemapping_', filename]);
 end

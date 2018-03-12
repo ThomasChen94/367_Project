@@ -1,14 +1,6 @@
 function output = tonemap_pro(I, filename)
 
-% global tone mapping
-I = imread('../dataset/1.tiff');
-
-I = im2double(I);
-
-% I = 10 * I;
-
-hdr1 = imadjust(I,[0,1],[0,1],1.0/8);
-imwrite(hdr1, './test/hdr_1.png');
+I = (I-min(I(:))) ./ (max(I(:))-min(I(:)));
 
 Iintensity = (20*I(:,:,1)+40*I(:,:,2)+I(:,:,3)) ./61; % There are many ways to compute the intensity, this is just an option
 % chrominance channels 
@@ -22,16 +14,8 @@ L = log10(Iintensity);
 % sigma               = % Complete
 % sigmaIntensity      = % Complete
 spatialSigma = 2;
-intensitySigma = 0.5;
+intensitySigma = 0.05;
 
-% % tong
-% averageFilterRadius_Tong = 5; % Chnage if needed
-% sigma_Tong              = 1.3;
-% sigmaIntensity_Tong      = 0.4;
-% 
-% B = bilateral(L, averageFilterRadius_Tong, sigma_Tong, sigmaIntensity_Tong);
- 
-    
 B = biFilter(spatialSigma, intensitySigma, L);
 
 % Show B
@@ -56,9 +40,17 @@ O = 10.^(BB + D);
 % convert back to RGB and apply gamma correction (2.2)
 Itonemapped3 = O .* Ichrominance;
 
+output = Itonemapped3;
 % Itonemapped3 = imadjust(Itonemapped3,[0,1], [0,1], 1/2.2);
 imshow(Itonemapped3);
 
+imwrite(Itonemapped3, ['../output/', filename]);
+
 end
 % imwrite(Itonemapped3, ['./wanzi/hdr2_spatial_' num2str(spatialSigma) '_inten_' num2str(intensitySigma) '_dR_' num2str(dR) '.png']);
-
+% % tong
+% averageFilterRadius_Tong = 5; % Chnage if needed
+% sigma_Tong              = 1.3;
+% sigmaIntensity_Tong      = 0.4;
+% 
+% B = bilateral(L, averageFilterRadius_Tong, sigma_Tong, sigmaIntensity_Tong);

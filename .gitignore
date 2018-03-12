@@ -5,3 +5,5 @@ output/*
 *.png
 code/test/*
 code/test.m
+code/q2*
+code/myToneMap*
