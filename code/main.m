@@ -21,9 +21,9 @@ end
 %%
 
 disp('Splitting images to tiles...')
-TILE_SIZE = 48;
+TILE_SIZE = 2;
 
-OVERLAPPING_SIZE = 8;
+OVERLAPPING_SIZE = 0;
 tiles_list = cell(1, num_img);
 tiles_list_R = cell(1, num_img);
 tiles_list_B = cell(1, num_img);
@@ -66,7 +66,7 @@ end
 
 imwrite(output_image, '../output/merge_output.tiff');
 
-%%
+
 %demosaic
 %testBayerPattern;
 
@@ -82,10 +82,10 @@ I_whiteBalane = whiteBalance(I);
 disp('demosaicing...')
 J_demosaic = our_demosaic(I_whiteBalane,'/chen/4rggb.png');
 
-fprintf('chroma denoise...\n');
-J_chroma = chroma_denoise(J_demosaic, '/chen/4chroma.png');
+%fprintf('chroma denoise...\n');
+%J_chroma = chroma_denoise(J_demosaic, '/chen/4chroma.png');
 
-%imshow(J*4)
+imshow(J_demosaic*4)
 
 %%
 J_tone = tonemapping(J_chroma, 'hotel.png');

@@ -8,7 +8,7 @@ function [ output_cell ] = merge_hdrplus( all_tile_cell )
     
     output_cell = cell([len1 len2]);
     
-    c = 6; % hyperparameter, fixed as 8 in the paper
+    c = 8; % hyperparameter, fixed as 8 in the paper
     for i = 1 : len1
         for j = 1 : len2
             % for each position, merge all tiles together
